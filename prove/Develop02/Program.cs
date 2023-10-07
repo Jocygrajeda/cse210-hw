@@ -24,15 +24,16 @@ class Program
             Console.WriteLine("3. Load");
             Console.WriteLine("4. Save");
             Console.WriteLine("5. Quit");
+            Console.WriteLine("6. Edit");
             Console.WriteLine(); 
 
             //user input
             Console.Write("What would you like to do? ");
             int choice;
             //input validation loop
-            while (!int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice > 5)
+            while (!int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice > 6)
             {
-                Console.WriteLine("Invalid choice :()");
+                Console.WriteLine("Invalid choice :(");
             }
 
             //statement according to the user choice
@@ -53,8 +54,11 @@ class Program
                 case 5:
                     isRunning = false;
                     break;  
+                case 6:
+                journal.EditEntry();
+                    break;    
                 default:
-                    Console.WriteLine("Please select between 1-5");
+                    Console.WriteLine("Please select between 1-6");
                     break;
             }
         }
@@ -212,4 +216,35 @@ class Journal
             Console.WriteLine($"Error loading the Journal: {ex.Message}");
         }
     }
+
+     public void EditEntry()
+    {
+        //display entries
+        Console.WriteLine("Select an entry to edit:");
+        for (int i = 0; i < entries.Count; i++)
+        {
+            Console.WriteLine($"{i + 1}. {entries[i].Date} - {entries[i].Question}: {entries[i].Answer}");
+        }
+
+        //user input
+        Console.Write("Enter the entry number to edit: ");
+        if (int.TryParse(Console.ReadLine(), out int entryNumber) && entryNumber >= 1 && entryNumber <= entries.Count)
+        {
+            //adjusting for zero-based index
+            int selectedIndex = entryNumber - 1;
+
+            //prompt the user for the new answer
+            Console.Write("Enter the new answer for the selected entry: ");
+            string newAnswer = Console.ReadLine();
+
+            //update the entry
+            entries[selectedIndex].Answer = newAnswer;
+
+            Console.WriteLine("Entry edited successfully.");
+        }
+        else
+        {
+            Console.WriteLine("Invalid entry number. Please try again.");
+        }
+    }    
 }
