@@ -28,7 +28,6 @@ class Program
 
             //user input
             Console.Write("What would you like to do? ");
-            Console.WriteLine(); 
             int choice;
             //input validation loop
             while (!int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice > 5)
