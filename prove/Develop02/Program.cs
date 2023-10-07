@@ -16,6 +16,7 @@ class Program
         while (isRunning)
         {
             //menu
+            Console.WriteLine(); 
             Console.WriteLine("Welcome to Journal Program!!");
             Console.WriteLine("Please select one of the following choices: ");
             Console.WriteLine("1. Write");
@@ -23,9 +24,11 @@ class Program
             Console.WriteLine("3. Load");
             Console.WriteLine("4. Save");
             Console.WriteLine("5. Quit");
+            Console.WriteLine(); 
 
             //user input
             Console.Write("What would you like to do? ");
+            Console.WriteLine(); 
             int choice;
             //input validation loop
             while (!int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice > 5)
@@ -121,6 +124,7 @@ class Journal
         //adding entry to the journal
         entries.Add(entry);
 
+        Console.WriteLine(); 
         Console.WriteLine("Entry added successfully.");
     }
 
@@ -145,6 +149,7 @@ class Journal
         //userinput for file name
         Console.Write("What is the file name? ");
         string fileName = Console.ReadLine();
+        Console.WriteLine(); 
 
         try
         {
@@ -154,6 +159,7 @@ class Journal
                 foreach (Entry entry in entries)
                 {
                     //csv format
+                    Console.WriteLine(); 
                     writer.WriteLine($"{entry.Date},{entry.Question},{entry.Answer}");
                 }
             }
@@ -170,7 +176,7 @@ class Journal
     {   //user input
         Console.Write("What is the filename? ");
         string fileName = Console.ReadLine();
-
+        Console.WriteLine(); 
         try
         {
             //use StreamReader to read the entries
