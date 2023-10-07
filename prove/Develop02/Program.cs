@@ -140,6 +140,7 @@ class Journal
             {
                 //display entry with date, question, and anwser
                 Console.WriteLine($"{entry.Date} - {entry.Question}: {entry.Answer}");
+                Console.WriteLine(); 
             }
         }
     }
