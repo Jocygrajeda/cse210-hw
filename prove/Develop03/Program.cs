@@ -7,10 +7,10 @@ class Program
     {
 
         string[] scriptureFiles = {
-            "john.txt",
-            "proverbs.txt",
-            "proverbs2.txt",
-            "matthew9.txt"
+            "John.txt",
+            "Proverbs.txt",
+            "Proverbs2.txt",
+            "Matthew9.txt"
             //to add files
         };
 
@@ -26,14 +26,15 @@ class Program
                 {
                     scripture.ClearConsole();
                     scripture.Display();
-
-                    Console.WriteLine("Press Enter to continue or type 'quit' to exit.");
+                    
+                    Console.WriteLine();
+                    Console.WriteLine("Press enter to continue or type 'quit' to finish: ");
                     string userInput = Console.ReadLine().ToLower();
 
                     if (userInput == "quit")
                         break;
 
-                    scripture.HideRandomWord();
+                    scripture.HideRandomWord(3);
                 }
             }
             else

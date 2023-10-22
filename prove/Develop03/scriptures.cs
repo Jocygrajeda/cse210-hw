@@ -21,7 +21,7 @@ public class Scripture
     //display method
     public void Display()
     {
-        Console.WriteLine($"{reference.Book} {reference.Chapter}:{reference.StartVerse}-{reference.EndVerse}");
+        Console.WriteLine($"{reference.Book} {reference.Chapter}:{reference.StartVerse}-{reference.EndVerse + 1}");
 
         foreach (var word in words)
         {
@@ -35,15 +35,24 @@ public class Scripture
     }
 
     //hide a random word
-    public void HideRandomWord()
+    public void HideRandomWord(int numberOfWordsToHide)
     {
         List<Word> visibleWords = words.FindAll(word => !word.IsHidden);
 
-        if (visibleWords.Count > 0)
+        /*if (visibleWords.Count > 0)
         {
             int randomIndex = random.Next(visibleWords.Count);
             visibleWords[randomIndex].Hide();
+        }*///this is for only one word to be hidden
+        int wordsToHide = Math.Min(numberOfWordsToHide, visibleWords.Count);
+
+        for (int i = 0; i < wordsToHide; i++)
+        {
+            int randomIndex = random.Next(visibleWords.Count);
+            visibleWords[randomIndex].Hide();
+            visibleWords.RemoveAt(randomIndex);
         }
+
     }
 
     public bool AllWordsHidden => words.TrueForAll(word => word.IsHidden);
@@ -87,4 +96,8 @@ public static Scripture LoadFromFile(string filePath)
     }
 }
 
+    internal void HideRandomWord(int v, object numberOfWordsToHide)
+    {
+        throw new NotImplementedException();
+    }
 }
