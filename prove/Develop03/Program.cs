@@ -34,7 +34,7 @@ class Program
                     if (userInput == "quit")
                         break;
 
-                    scripture.HideRandomWord(3);
+                    scripture.HideRandomWord(3);// how many words are hidden at a time
                 }
             }
             else
