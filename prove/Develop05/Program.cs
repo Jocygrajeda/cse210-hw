@@ -43,6 +43,8 @@ public class Program
 
     private static void DisplayMenuOptions()
     {
+        Console.Clear();
+        Console.WriteLine($"Current Score: {score}");
         Console.WriteLine();
         Console.WriteLine("Menu Options:");
         Console.WriteLine("  1. Create New Goal");
@@ -56,6 +58,7 @@ public class Program
 
     public static void DisplayGoals()
     {
+        Console.Clear();
         Console.WriteLine("The goals are:");
         foreach (Goal goal in goals)
         {
@@ -111,6 +114,14 @@ public class Program
 
     public static void RecordEvent()
     {
+
+        if (goals.Count == 0)
+        {
+            Console.WriteLine("No goals available to record events. Create goals first.");
+            return;
+        }
+
+        Console.Clear();
         Console.WriteLine("Which goal did you accomplish?");
         int i = 1;
         foreach (Goal goal in goals)

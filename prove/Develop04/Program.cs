@@ -4,72 +4,59 @@ class Program
 {
     static void Main(string[] args)
     {
-        bool loop = true;
-        int choice;
-        string input;
-        while (loop)
-        {
-            input = GetMenuChoice();
+         int input = 0;
+            while (input != 4)
+            {            
+                Console.WriteLine("Menu Options:");
+                Console.WriteLine("  1. Start breathing activity");
+                Console.WriteLine("  2. Start reflecting activity");
+                Console.WriteLine("  3. Start listing activity");
+                Console.WriteLine("  4. Quit");
+                Console.Write("Select a choice from the menu: ");
+                input = Convert.ToInt32(Console.ReadLine());
 
-            if (int.TryParse(input, out choice))
-            {
-                switch (choice)
+                Console.Clear();
+                if (input != 4)
                 {
-                    case 1:
+                
+                
+                    if (input == 1)
+                    {
+                        BreathingActivity breath = new BreathingActivity("Breathing", "This activity will help you relax by walking your through breathing in and out slowly. Clear your mind and focus on your breathing.");
+                        breath.StartMessage();
+                        breath.InAndOutLoop();
+
+                        Thread.Sleep(2000);
+
+                        Console.WriteLine();
+                        breath.EndMessage();
                         Console.Clear();
-                        BreathingActivity bActivity = new BreathingActivity();
-                        bActivity.Start();
-                        break;
-                    case 2:
+                    }
+                    else if (input == 2)
+                    {
+                        ReflectingActivity reflect = new ReflectingActivity("Reflecting", "This activity will help you reflect on times in your life when you have shown strength and resilience. This will help you recognize the power you have and how you can use it in other aspects of your life.");
+                        reflect.StartMessage();
+                        reflect.GetReflectionPrompt();
+                        reflect.GetReflectionQuestion();
+                        Console.WriteLine();
+                        reflect.EndMessage();
                         Console.Clear();
-                        ReflectionActivity rActivity = new ReflectionActivity();
-                        rActivity.Start();
-                        break;
-                    case 3:
+                    }
+                    else if (input == 3)
+                    {
+                        ListingActivity list = new ListingActivity("Listing", "This activity will help you reflect on the good things in your life by having you list as many things as you can in a certain area.");
+                        list.StartMessage();
+                        list.GetListingPrompt();
+                        list.RecordListing();
+                        Console.WriteLine();
+                        list.EndMessage();
                         Console.Clear();
-                        ListingActivity lActivity = new ListingActivity();
-                        lActivity.Start();
-                        break;
-                    case 4:
-                        Console.Clear();
-                        loop = false;
-                        break;
-                    default:
-                        Console.WriteLine("Invalid choice. Try again.");
-                        break;
+                    }
+
                 }
             }
-            else
-            {
-                Console.Clear();
-            }
-        }
-    }
 
-    static string GetMenuChoice()
-    {
-        Console.WriteLine();
-        Console.WriteLine("Menu Options:");
-        Console.WriteLine("  1. Breathing Activity");
-        Console.WriteLine("  2. Reflection Activity");
-        Console.WriteLine("  3. Listing Activity");
-        Console.WriteLine("  4. Quit");
 
-        Console.Write("Select a choice from the menu: ");
-        string choice = Console.ReadLine();
-        return choice;
-    }
 
-    static int GetDuration()
-    {
-        int duration;
-        while (true)
-        {
-            if (int.TryParse(Console.ReadLine(), out duration) && duration > 0)
-            {
-                return duration;
-            }
-            Console.WriteLine("Invalid input. Please enter a positive integer value.");
-        }
     }
 }

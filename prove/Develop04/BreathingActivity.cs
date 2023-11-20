@@ -1,56 +1,127 @@
-class BreathingActivity : Activity
+
+/*public class BreathingActivity : Activity
 {
-    private const int BreathingInCountdown = 5;
-    private const int BreathingOutCountdown = 5;
-
-    public override void Start()
+    public BreathingActivity(string ActivityName, string Description) : base(ActivityName, Description)
     {
-        Console.WriteLine("Welcome to the Breathing Activity.");
-        Console.WriteLine("\nThis activity will help you relax by walking you through breathing in and out slowly. Clear your mind and focus on your breathing.");
 
-        int duration = GetDuration();
-        Console.WriteLine();
+    }
 
-        Console.Write($"Get ready to\n");
-        string[] spinner = { "|", "/", "-", "\\" };
+    public void InAndOutLoop()
+    {
+        int breaths = 3;
+        int breathTime = _duration / (2 * breaths);
 
-        DateTime startTime = DateTime.Now;
+        Console.Clear();
+        Console.WriteLine("Get ready...");
+        LoadingAnimation();
 
-        for (int i = 0; i < 5; i++)
+        for (int i = 1; i <= breaths; i++)
         {
-            Console.Write(spinner[i % spinner.Length]);
-            Thread.Sleep(1000);
-            Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
-        }
-        Console.Write(" ");  // Clear the last spinner character
-        Console.WriteLine();
-
-        while ((DateTime.Now - startTime).TotalSeconds < duration)
-        {
-            Console.Write("Breathe in...");
-            CountDown(BreathingInCountdown);
-
-            Console.Write("Now, breathe out...");
-            CountDown(BreathingOutCountdown);
+            Console.WriteLine();
+            //Console.WriteLine($"Breath {i}: Breathe in for {breathTime} seconds.");
+            for (int j = breathTime; j > 0; j--)
+            {
+                Console.Write("\r" + new string(' ', Console.WindowWidth - 1));
+                Console.Write("\r" + $"Breath In...{j}");
+                Thread.Sleep(1000);
+            }
 
             Console.WriteLine();
+            //Console.WriteLine($"Breath {i}: Breathe out for {breathTime} seconds.");
+            for (int j = breathTime; j > 0; j--)
+            {
+                Console.Write("\r" + new string(' ', Console.WindowWidth - 1));
+                Console.Write("\r" + $"Breath Out...{j}");
+                Thread.Sleep(1000);
+            }
         }
 
-        Console.WriteLine($"Well done!");
-
-        // Spinner animation after "Well done!" message
-        string[] spinnerAnimation = { "|", "/", "-", "\\" };
-        for (int i = 0; i < 5; i++)
-        {
-            Console.Write(spinnerAnimation[i % spinnerAnimation.Length]);
-            Thread.Sleep(1000);
-            Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
-        }
-        Console.Write(" ");  // Clear the last spinner character
         Console.WriteLine();
-
-        Console.WriteLine($"You have completed {duration} seconds of the Breathing Activity.");
-        Spinner(3);
-        Console.Clear();
+        Console.WriteLine("Well Done!");
     }
 }
+*/
+
+public class BreathingActivity : Activity
+{
+    public BreathingActivity(string ActivityName, string Description) : base(ActivityName, Description)
+    {
+
+    }
+
+    public void InAndOutLoop()
+    {
+        int breaths = 3;
+
+        Console.Clear();
+        Console.WriteLine("Get ready...");
+        LoadingAnimation();
+
+        for (int i = 1; i <= breaths; i++)
+        {
+            Console.WriteLine();
+            for (int j = 5; j > 0; j--)
+            {
+                Console.Write("\r" + new string(' ', Console.WindowWidth - 1));
+                Console.Write("\r" + $"Breath In...{j}");
+                Thread.Sleep(1000);
+            }
+
+            Console.WriteLine();
+            for (int j = 5; j > 0; j--)
+            {
+                Console.Write("\r" + new string(' ', Console.WindowWidth - 1));
+                Console.Write("\r" + $"Breath Out...{j}");
+                Console.Write(" ");
+                Thread.Sleep(1000);
+            }
+        }
+
+        Console.WriteLine();
+        Console.WriteLine("Well Done!");
+    }
+}
+
+
+/*public class BreathingActivity : Activity
+{
+    public BreathingActivity(string ActivityName, string Description) : base(ActivityName, Description)
+    {
+
+    }
+
+    public void InAndOutLoop(int breathDuration)
+    {
+        int breaths = 3;
+
+        Console.Clear();
+        Console.WriteLine("Get ready...");
+        LoadingAnimation();
+
+        int totalSessionTime = breaths * (2 * breathDuration);
+
+        for (int i = 1; i <= breaths; i++)
+        {
+            Console.WriteLine();
+            for (int j = breathDuration; j > 0; j--)
+            {
+                Console.Write("\r" + new string(' ', Console.WindowWidth - 1));
+                Console.Write("\r" + $"Breath In...{j}");
+                Thread.Sleep(1000 * breathDuration / totalSessionTime);
+            }
+
+            Console.WriteLine();
+            for (int j = breathDuration; j > 0; j--)
+            {
+                Console.Write("\r" + new string(' ', Console.WindowWidth - 1));
+                Console.Write("\r" + $"Breath Out...{j}");
+                Console.Write(" ");
+                Thread.Sleep(1000 * breathDuration / totalSessionTime);
+            }
+        }
+
+        Console.WriteLine();
+        Console.WriteLine("Well Done!");
+    }
+}
+*/
