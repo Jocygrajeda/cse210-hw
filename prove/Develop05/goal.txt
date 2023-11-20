@@ -1,4 +1,0 @@
-SimpleGoal,talk,100,give talk when asked
-EternalGoal,scriptures,100,read scriptures for 10 min each day
-ChecklistGoal,temple,100,
-3,0
