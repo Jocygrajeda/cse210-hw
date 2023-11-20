@@ -1,52 +1,63 @@
-public class Goal
+using System;
+
+//goal is an abstract class representing a generic goal
+public abstract class Goal 
 {
-    private string _name;
-    private int _pointValue;
+    //private fields to store goal details
+    private string _shortName;
     private string _description;
+    private string _points;
 
-    public string Name
+    //constructor for Goal class
+    public Goal(string name, string description, string points, bool health = true)
     {
-        get { return _name; }
-        set { _name = value; }
+        _shortName = name;
+        _description = description;
+        _points = points;
     }
 
-    public int PointValue
+    //abstract method to be implemented by derived classes for recording events
+    public abstract void RecordEvent();
+
+    //abstract method to be implemented by derived classes for checking completion status
+    public abstract bool IsComplete();
+
+    //virtual method providing a default implementation for getting a details string
+    public virtual string GetDetailsString()
     {
-        get { return _pointValue; }
-        set { _pointValue = value; }
+
+        if (IsComplete())
+        {
+            return($"[x] {_shortName} ({_description})"); //mark done when completed goal
+        } 
+        else 
+        {
+            return($"[ ] {_shortName} ({_description})"); //display empty checkbox for incomplete goal
+        }
     }
 
-    public string Description
+
+    public abstract string GetStringRepresentation();
+
+    public string GetName()
     {
-        get { return _description; }
-        set { _description = value; }
+        return _shortName;
+    }
+    public string GetDescription()
+    {
+        return _description;
     }
 
-    public Goal(string name, int pointValue, string description)
+    //getter method for retrieving the goal's points as an integer
+    public int GetPoints()
     {
-        Name = name;
-        PointValue = pointValue;
-        Description = description;
+        int point = int.Parse(_points);
+        return point;
     }
 
-    public virtual string DisplayGoal()
+    //setter method for updating the goal's points
+    public void SetPoints(int points)
     {
-        return $"Name: {Name}, Points: {PointValue}, Description: {Description}";
-    }
-
-    public virtual int CalculatePoints()
-    {
-        return PointValue;
-    }
-
-    // Added this method in the base class
-    public virtual void RecordProgress()
-    {
-        // Implementation for recording progress
-    }
-
-    public virtual bool IsCompleted()
-    {
-        return false;
-    }
+        _points = points.ToString();
+    } 
 }

@@ -1,3 +1,5 @@
-talk,100,give a talk
-scriptures,50,read them for 10 mins
-temple,50,
+1050
+SimpleGoal:talk,give a talk,100,True
+EternalGoal:Scriptures,read them 20 mins a day,100
+ChecklistGoal:temple,go to the temple,550,500,3,3
+SimpleGoal:eat,eat at least twice a day,100,False

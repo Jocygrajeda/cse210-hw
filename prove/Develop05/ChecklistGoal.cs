@@ -1,51 +1,71 @@
-public class ChecklistGoal : Goal
+using System;
+
+
+
+public class ChecklistGoal : Goal 
 {
-    private int _requiredTimes;
-    private int _completedTimes;
+    //tracks the number of finished tasks
+    protected int  _amountCompleted;
 
-    public int RequiredTimes
+    //the target of finished tasks 
+    private int _target;
+
+    //bonus if they finished the amount of times the user put
+    private int _bonus;
+
+    public ChecklistGoal(string name, string description, string points,int target, int bonus) : base(name, description, points)
     {
-        get { return _requiredTimes; }
-        set { _requiredTimes = value; }
+        _target = target;
+        _bonus = bonus;
+        _amountCompleted = 0;
     }
 
-    public int CompletedTimes
+    //check for goal completion
+    public override void RecordEvent()
     {
-        get { return _completedTimes; }
-        set { _completedTimes = value; }
+       _amountCompleted++;
+
+       if (_target == _amountCompleted)
+       {
+        //receiving the bonus if completed ?/?
+        int totalPoints = GetPoints() + _bonus;
+        SetPoints(totalPoints);
+       }
+       
     }
 
-    public ChecklistGoal(string name, int pointValue, int requiredTimes) : base(name, pointValue, "")
+    public override bool IsComplete()
     {
-        RequiredTimes = requiredTimes;
-    }
-
-    // Correct method signature
-    public override void RecordProgress()
-    {
-        if (!IsCompleted())
+        if (_amountCompleted == _target)
         {
-            _completedTimes++;
+           
+            return true;
+        
+        } else
+
+        {
+
+        return false;
         }
     }
 
-    public override string DisplayGoal()
+    public override string GetStringRepresentation()
     {
-        return $"{base.DisplayGoal()} (Progress: {_completedTimes}/{_requiredTimes})";
+        string representation = $"ChecklistGoal:{base.GetName()},{base.GetDescription()},{base.GetPoints()},{_bonus},{_target},{_amountCompleted}";
+
+        return representation;
     }
 
-    public override int CalculatePoints()
+    // Returns a string with details about the ChecklistGoal including completion status
+    public override string GetDetailsString()
     {
-        if (IsCompleted())
-        {
-            // Add bonus points if the goal is completed
-            return PointValue + PointValue;
-        }
-        return PointValue;
+        return ($"{base.GetDetailsString()} -- Currently completed: {_amountCompleted}/{_target}");
     }
 
-    public override bool IsCompleted()
+    public void SetAmount(int amount)
     {
-        return _completedTimes >= _requiredTimes;
+        _amountCompleted = amount;
     }
+
+
 }

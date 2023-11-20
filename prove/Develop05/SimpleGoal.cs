@@ -1,16 +1,31 @@
+using System;
 
-public class SimpleGoal : Goal
+public class SimpleGoal : Goal 
 {
-    public SimpleGoal(string name, int pointValue, string description) : base(name, pointValue, description)
+
+     // boolean to track whether the simple goal is complete or not
+    private bool _IsComplete;
+
+    public SimpleGoal(string name, string description, string points) : base(name, description, points)// constructor
     {
+        _IsComplete = false;
     }
 
-    public int MarkCompleted()
+    public override void RecordEvent()
     {
-        // Add logic for marking the goal as completed
-        // Return the points earned, or 0 if the goal is already completed
-        return 0;
+        _IsComplete = true; //mark simple goal as complete when recording an event
     }
 
-    // Override other methods as needed
+    public override bool IsComplete()
+    {
+        return _IsComplete;// check if is complete
+    }
+
+    public override string GetStringRepresentation()
+    {
+        string representation = $"SimpleGoal:{base.GetName()},{base.GetDescription()},{base.GetPoints()},{_IsComplete}";
+        return representation;
+    }
+
+  
 }
