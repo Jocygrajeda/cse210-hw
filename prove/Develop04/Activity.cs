@@ -1,14 +1,17 @@
-using System.IO;
+using System;
 
-public class Activity 
+public class Activity
 {
-    public int _duration;
-    public string _description;
-    public string _activityName;
-    public int _pauseStart;
+    //protected fields for storing activity details
+    protected int _duration;
+    protected string _description;
+    protected string _activityName;
+    protected int _pauseStart;
     private int _pauseEnd;
     private string _endingMessage;
+    protected Random _random = new Random();
 
+    //constructior to initialize activity details
     public Activity(int duration, string description, string activityName, int pauseStart, int pauseEnd, string endingMessage)
     {
         _duration = duration;
@@ -18,55 +21,59 @@ public class Activity
         _pauseEnd = pauseEnd;
         _endingMessage = endingMessage;
     }
-    public void DisplayStartingMessage(string activityName, string message)
-{
-    _description = message;
-    _activityName = activityName;
-    Console.Clear();
-    Console.WriteLine($"Welcome to the {_activityName} Activity.\n");
-    Console.WriteLine(_description);
-    Console.WriteLine();
 
-    int userInput;
-    bool validInput = false;
-
-    do
+    //displaying starting message and get user input for duration
+    protected void DisplayStartingMessage()
     {
-        Console.Write("How long, in seconds, would you like your session? ");
-        string input = Console.ReadLine();
+        Console.Clear();
+        Console.WriteLine($"Welcome to the {_activityName} Activity.\n");
+        Console.WriteLine(_description);
+        Console.WriteLine();
+        GetUserDurationInput();
+    }
 
-        validInput = int.TryParse(input, out userInput);
+    private void GetUserDurationInput()
+    {
+        int userInput;
+        bool validInput = false;
 
-        if (!validInput)
+        do
         {
-            Console.WriteLine("Invalid input. Please enter a valid integer.");
-        }
+            Console.Write("How long, in seconds, would you like your session? ");
+            string input = Console.ReadLine();
 
-    } while (!validInput);
+            validInput = int.TryParse(input, out userInput);
 
-    _duration = userInput;
-}
+            if (!validInput)
+            {
+                Console.WriteLine("Invalid input. Please enter a valid integer.");
+            }
 
-    public void DisplayHoldAnimation(int pauseSeconds)
+        } while (!validInput);
+
+        _duration = userInput;
+    }
+
+    //display spinner
+    protected void DisplayHoldAnimation(int pauseSeconds)
     {
-        string[] spinner = {"-","|", "/" };
-        for (int i = 0; i < pauseSeconds; i++ ){
+        string[] spinner = { "-", "|", "/"  };
+        for (int i = 0; i < pauseSeconds; i++)
+        {
             Console.Write(spinner[i % spinner.Length]);
-            Thread.Sleep(450);
-            Console.SetCursorPosition(Console.CursorLeft -1, Console.CursorTop);
+            System.Threading.Thread.Sleep(550);
+            Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
         }
     }
-    public void StartPause(int duration = 5)//10
+
+    protected void StartPause(int duration = 5)//pause duration of 5 seconds
     {
         DisplayHoldAnimation(duration);
     }
-//adding messages
 
-    private readonly Random _random = new Random();
-    public void DisplayEndingMessage(string activityName)
+    public virtual void DisplayEndingMessage()//virtual method to display a message at the end of the activity
     {
-        Console.WriteLine();
-        Console.WriteLine($"Congratulations! You have completed the {activityName} activity.");
+        Console.WriteLine($"Congratulations! You have completed the {_activityName} activity.");
         Console.WriteLine($"You engaged in this activity for {_duration} seconds.");
         Console.WriteLine(_endingMessage);
         StartPause();
@@ -77,16 +84,18 @@ public class Activity
         }
     }
 
-    private void DisplaySurpriseMessage()
+    private void DisplaySurpriseMessage()//display hidden message
     {
         Console.WriteLine("Surprise! You found a hidden message!");
         Console.WriteLine("Thanks for using this program!");
     }
 
-    public void StartActivity(string _activityName, string _description)
+    public virtual void StartActivity() //method to start activity
     {
         Console.Clear();
         StartPause();
-        DisplayStartingMessage(_activityName, _description);
+        DisplayStartingMessage();
     }
 }
+
+//showing creativity by adding a txt where the input from the user in listing is store and displaying a hidden message.
