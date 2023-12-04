@@ -66,7 +66,7 @@ class Program
     static void ExecuteActivity(Activity activity)
     {
         activity.StartActivity();
-        Console.WriteLine("Press Enter to return to the main menu...");
+        Console.WriteLine("\nPress Enter to return to the main menu...");
         Console.ReadLine();
     }
 }

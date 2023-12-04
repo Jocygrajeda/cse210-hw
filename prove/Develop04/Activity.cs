@@ -1,8 +1,12 @@
+
+//showing creativity by adding a txt where the input from the user in listing is store and displaying a hidden message.
+
 using System;
 
+//base class for various activities
 public class Activity
 {
-    //protected fields for storing activity details
+    //fields for storing activity details
     protected int _duration;
     protected string _description;
     protected string _activityName;
@@ -11,7 +15,21 @@ public class Activity
     private string _endingMessage;
     protected Random _random = new Random();
 
-    //constructior to initialize activity details
+    //array of random messages for display
+    private string[] _randomMessages = {
+        "Did you know that laughter can reduce stress and increase feelings of happiness?",
+        "Taking a short break to stretch can improve circulation and reduce muscle tension.",
+        "Deep breathing can help calm the nervous system and promote relaxation.",
+        "Studies show that spending time in nature can improve mood and reduce stress levels.",
+        "Listening to your favorite music can have a positive impact on your mood and stress levels.",
+        "Eating a small piece of dark chocolate can release endorphins, the 'feel-good' hormones.",
+        "Expressing gratitude for three things each day can lead to increased happiness.",
+        "Taking short, frequent breaks during work can enhance productivity and focus.",
+        "Connecting with loved ones, even through a quick call or message, can boost your mood.",
+        "Did you know that smiling, even if forced, can trick your brain into feeling happier?",
+    };
+
+    //constructor to initialize activity details
     public Activity(int duration, string description, string activityName, int pauseStart, int pauseEnd, string endingMessage)
     {
         _duration = duration;
@@ -22,7 +40,7 @@ public class Activity
         _endingMessage = endingMessage;
     }
 
-    //displaying starting message and get user input for duration
+    //display starting message and get user input for duration
     protected void DisplayStartingMessage()
     {
         Console.Clear();
@@ -32,6 +50,7 @@ public class Activity
         GetUserDurationInput();
     }
 
+    //get user input for activity duration
     private void GetUserDurationInput()
     {
         int userInput;
@@ -54,10 +73,10 @@ public class Activity
         _duration = userInput;
     }
 
-    //display spinner
+    //display spinner animation during pauses
     protected void DisplayHoldAnimation(int pauseSeconds)
     {
-        string[] spinner = { "-", "|", "/"  };
+        string[] spinner = { "-", "|", "/" };
         for (int i = 0; i < pauseSeconds; i++)
         {
             Console.Write(spinner[i % spinner.Length]);
@@ -66,31 +85,46 @@ public class Activity
         }
     }
 
-    protected void StartPause(int duration = 5)//pause duration of 5 seconds
+    //start pause with spinner animation (default duration is 5 seconds)
+    protected void StartPause(int duration = 5)
     {
         DisplayHoldAnimation(duration);
     }
 
-    public virtual void DisplayEndingMessage()//virtual method to display a message at the end of the activity
+    //virtual method to display a message at the end of the activity
+    public virtual void DisplayEndingMessage()
     {
         Console.WriteLine($"Congratulations! You have completed the {_activityName} activity.");
         Console.WriteLine($"You engaged in this activity for {_duration} seconds.");
         Console.WriteLine(_endingMessage);
         StartPause();
 
+        //display a hidden message if a random condition is met
         if (_random.Next(1, 5) == 1)
         {
             DisplaySurpriseMessage();
         }
+
+        //display a random message
+        Console.WriteLine(GetRandomMessage());
     }
 
-    private void DisplaySurpriseMessage()//display hidden message
+    //display a surprise message
+    private void DisplaySurpriseMessage()
     {
         Console.WriteLine("Surprise! You found a hidden message!");
         Console.WriteLine("Thanks for using this program!");
     }
 
-    public virtual void StartActivity() //method to start activity
+    //get a random message from the array
+    private string GetRandomMessage()
+    {
+        int index = _random.Next(_randomMessages.Length);
+        return _randomMessages[index];
+    }
+
+    //virtual method to start the activity
+    public virtual void StartActivity()
     {
         Console.Clear();
         StartPause();
@@ -98,4 +132,3 @@ public class Activity
     }
 }
 
-//showing creativity by adding a txt where the input from the user in listing is store and displaying a hidden message.
