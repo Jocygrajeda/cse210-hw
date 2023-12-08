@@ -7,7 +7,7 @@ class Program
         // Create addresses
         Address eventAddress1 = new Address("990 Main St", "Anytown", "CA", "USA");
         Address eventAddress2 = new Address("1209 Flora Ave", "Greenville", "NY", "USA");
-        Address eventAddress3 = new Address("123 Nature Blvd", "Corona", "BC", "Mexico");
+        Address eventAddress3 = new Address("123 Nature Blvd", "Corona", "BC", "Canada");
 
         // Create events
         Event genericEvent = new Event("Generic Event", "A generic event", DateTime.Now, TimeSpan.FromHours(2), eventAddress1);

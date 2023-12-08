@@ -10,8 +10,10 @@ public class OutdoorGathering : Event
 
     public override string GenerateFullDetails()
     {
-        return $"{GenerateFullDetails()}\nType: Outdoor Gathering\nWeather: {WeatherStatement}";
+        //return $"{GenerateFullDetails()}\nType: Outdoor Gathering\nWeather: {WeatherStatement}";
+        return $"Title: {Title}\nDescription: {Description}\nDate: {Date.ToShortDateString()}\nTime: {Time}\nAddress: {EventAddress.GetFullAddress()}\nType: Outdoor Gathering\nWeather: {WeatherStatement}";
     }
+
 
     public override string GenerateShortDescription()
     {
